@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nishan Bakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF4B60;
+            --secondary: #2A2742;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            transform: translateX(0);
+        }
+
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .nav-hidden {
+            transform: translateY(-100%);
+        }
+
+        .auth-icon {
+            transition: all 0.3s ease;
+        }
+
+        .auth-icon:hover {
+            transform: translateY(-3px);
+        }
+
+        .cart-bounce {
+            animation: cartBounce 1s ease infinite;
+        }
+
+        .modal {
+           
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal.active {
+          
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            transform: translateY(-50px);
+            transition: all 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        @keyframes cartBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* Glow effect */
+        .glow-button {
+            box-shadow: 0 0 15px rgba(255, 75, 96, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(255, 75, 96, 0.5);
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                height: calc(100vh - 5rem);
+                overflow-y: auto;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div class="modal-content bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 overflow-hidden">
+            <div class="relative">
+                <!-- Header with background -->
+                <div class="bg-gradient-to-r from-[#FF4B60] to-[#FF6B80] p-6 text-white">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-bold">Contact Nishan Bakers</h3>
+                        <button id="close-modal" class="text-white hover:text-gray-200 transition-colors">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <p class="mt-2 text-white/90">Please register or login to contact us directly</p>
+                </div>
+                
+                <!-- Contact information -->
+                <div class="p-6">
+                    <div class="space-y-6">
+                        <!-- Contact details -->
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-[#FF4B60]/10 p-3 rounded-full text-[#FF4B60]">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Email Address</p>
+                                    <p class="font-medium">contact@nishanbakers.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-[#FF4B60]/10 p-3 rounded-full text-[#FF4B60]">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Phone Number</p>
+                                    <p class="font-medium">+1 (234) 567-8901</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-[#FF4B60]/10 p-3 rounded-full text-[#FF4B60]">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Location</p>
+                                    <p class="font-medium">123 Bakery Street, Galwana.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Buttons -->
+                        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-200">
+                            <a href="login%20and%20signin.php" class="py-3 px-4 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg font-medium text-center transition-colors duration-300">
+                                Sign Up
+                            </a>
+                            <a href="login%20and%20signin.php" class="py-3 px-4 bg-[#FF4B60] hover:bg-[#FF6B80] text-white rounded-lg font-medium text-center transition-colors duration-300 glow-button">
+                                Login
+                            </a>
+                        </div>
+
+                        <!-- Social media links -->
+                        <div class="flex justify-center space-x-4 pt-4">
+                            <a href="#" class="p-2 bg-gray-100 hover:bg-[#FF4B60] hover:text-white rounded-full transition-colors duration-300">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="p-2 bg-gray-100 hover:bg-[#FF4B60] hover:text-white rounded-full transition-colors duration-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="p-2 bg-gray-100 hover:bg-[#FF4B60] hover:text-white rounded-full transition-colors duration-300">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="p-2 bg-gray-100 hover:bg-[#FF4B60] hover:text-white rounded-full transition-colors duration-300">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav id="navbar" class="fixed top-0 w-full bg-white/95 backdrop-blur-sm transition-all duration-500 z-40">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 group">
+                    <a href="index.php" class="flex items-center space-x-2">
+                        <span class="logo-text font-bold text-2xl">
+                            <span class="bg-gradient-to-r from-[#FF4B60] to-[#FF6B80] bg-clip-text text-transparent">Nishan Bakers</span>
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="index.php" class="nav-link text-gray-700 font-medium hover:text-[#FF4B60] transition-colors duration-300">Home</a>
+                    <a href="about.php" class="nav-link text-gray-700 font-medium hover:text-[#FF4B60] transition-colors duration-300">About</a>
+                    <a href="shop.php" class="nav-link text-gray-700 font-medium hover:text-[#FF4B60] transition-colors duration-300">Shop</a>
+                    <a href="blog.php" class="nav-link text-gray-700 font-medium hover:text-[#FF4B60] transition-colors duration-300">Blogs</a>
+                    <a href="contact.php" id="contact-link" class="nav-link text-gray-700 font-medium hover:text-[#FF4B60] transition-colors duration-300">Contact</a>
+                </div>
+
+                <!-- Right Side Items - Desktop -->
+                <div class="hidden lg:flex items-center space-x-6">
+                    <!-- Cart Icon -->
+                    <div id="cart-container-unique" class="relative group icon p-2 hover:bg-gray-100 rounded-full transition-all duration-300 cart-bounce cursor-pointer">
+                        <i id="cart-icon-unique" class="fas fa-shopping-cart text-xl text-gray-700 group-hover:text-[#FF4B60]"></i>
+                        
+                    </div>
+
+                    <!-- Auth Buttons -->
+                    <a href="login%20and%20signin.php" class="auth-icon p-2 hover:bg-gray-100 rounded-full transition-all duration-300">
+                        <i class="fas fa-user-plus text-xl text-gray-700 hover:text-[#FF4B60]"></i>
+                    </a>
+                    <a href="login%20and%20signin.php" class="px-6 py-2 bg-[#FF4B60] text-white rounded-full hover:bg-[#FF6B80] transition-all duration-300 flex items-center space-x-2 glow-button">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Login</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Right Icons -->
+                <div class="flex lg:hidden items-center space-x-4">
+                    <!-- Mobile Cart -->
+                    <button class="p-2 hover:bg-gray-100 rounded-full relative">
+                        <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
+                        <span class="absolute -top-1 -right-1 bg-[#FF4B60] text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">3</span>
+                    </button>
+                    
+                    <!-- Mobile Menu Toggle -->
+                    <button id="menu-btn" class="p-2 rounded-md hover:bg-gray-100 transition-colors duration-300">
+                        <i class="fas fa-bars text-xl text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu lg:hidden bg-white fixed top-20 left-0 w-full h-screen shadow-lg">
+            <div class="px-4 py-6 space-y-4">
+                <a href="index.php" class="block px-4 py-3 text-gray-700 hover:bg-[#FF4B60] hover:text-white rounded-lg transition-all duration-300">Home</a>
+                <a href="about.php" class="block px-4 py-3 text-gray-700 hover:bg-[#FF4B60] hover:text-white rounded-lg transition-all duration-300">About</a>
+                <a href="shop.php" class="block px-4 py-3 text-gray-700 hover:bg-[#FF4B60] hover:text-white rounded-lg transition-all duration-300">Shop</a>
+                <a href="blog.php" class="block px-4 py-3 text-gray-700 hover:bg-[#FF4B60] hover:text-white rounded-lg transition-all duration-300">Blogs</a>
+                <a href="contact.php" id="mobile-contact-link" class="block px-4 py-3 text-gray-700 hover:bg-[#FF4B60] hover:text-white rounded-lg transition-all duration-300">Contact</a>
+                
+                <!-- Mobile Auth Options -->
+                <div class="pt-6 border-t border-gray-200 space-y-3">
+                    <a href="login%20and%20signin.php" class="flex items-center space-x-2 px-4 py-3 text-gray-700 hover:bg-[#FF4B60] hover:text-white rounded-lg transition-all duration-300">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Sign Up</span>
+                    </a>
+                    <a href="login%20and%20signin.php" class="flex items-center space-x-2 px-4 py-3 bg-[#FF4B60] text-white rounded-lg hover:bg-[#FF6B80] transition-all duration-300">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Login</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        // Modal handling
+        const contactModal = document.getElementById('contact-modal');
+        const contactLink = document.getElementById('contact-link');
+        const mobileContactLink = document.getElementById('mobile-contact-link');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        function openModal() {
+            contactModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            contactModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        contactLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+        });
+
+        mobileContactLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+            // Also close mobile menu if open
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('active');
+                menuBtn.innerHTML = '<i class="fas fa-bars text-xl text-gray-700"></i>';
+                isMenuOpen = false;
+            }
+        });
+
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        contactModal.addEventListener('click', (e) => {
+            if (e.target === contactModal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && contactModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Enhanced scroll behavior
+        let lastScroll = 0;
+        const navbar = document.getElementById('navbar');
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+
+        // Scroll handling
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                navbar.classList.remove('nav-hidden');
+                navbar.style.background = 'rgb(255, 255, 255, 0.95)';
+                return;
+            }
+            
+            if (currentScroll > lastScroll && !navbar.classList.contains('nav-hidden')) {
+                navbar.classList.add('nav-hidden');
+            } else if (currentScroll < lastScroll && navbar.classList.contains('nav-hidden')) {
+                navbar.classList.remove('nav-hidden');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Mobile menu toggle
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            mobileMenu.classList.toggle('active');
+            menuBtn.innerHTML = isMenuOpen ? 
+                '<i class="fas fa-times text-xl text-[#FF4B60]"></i>' : 
+                '<i class="fas fa-bars text-xl text-gray-700"></i>';
+            
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+        });
+
+        // Handle screen resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024 && isMenuOpen) {
+                mobileMenu.classList.remove('active');
+                menuBtn.innerHTML = '<i class="fas fa-bars text-xl text-gray-700"></i>';
+                isMenuOpen = false;
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target) && isMenuOpen) {
+                mobileMenu.classList.remove('active');
+                menuBtn.innerHTML = '<i class="fas fa-bars text-xl text-gray-700"></i>';
+                isMenuOpen = false;
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Add cart notification animation
+        const cartContainer = document.getElementById('cart-container-unique');
+        const cartIcon = document.getElementById('cart-icon-unique');
+        
+        cartContainer.addEventListener('mouseover', () => {
+            cartIcon.classList.add('text-[#FF4B60]');
+        });
+        
+        cartContainer.addEventListener('mouseout', () => {
+            cartIcon.classList.remove('text-[#FF4B60]');
+        });
+    </script>
+</body>
+</html>

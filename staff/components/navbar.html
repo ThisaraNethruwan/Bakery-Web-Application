@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nishan Bakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF4B60;
+            --secondary: #2A2742;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .logo-text {
+            font-family:  'Poppins', sans-serif;
+        }
+
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            transform: translateX(0);
+        }
+
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .nav-hidden {
+            transform: translateY(-100%);
+        }
+
+        .auth-icon {
+            transition: all 0.3s ease;
+        }
+
+        .auth-icon:hover {
+            transform: translateY(-3px);
+        }
+
+        .cart-bounce {
+            animation: cartBounce 1s ease infinite;
+           
+        }
+
+        @keyframes cartBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                height: calc(100vh - 5rem);
+                overflow-y: auto;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar" class="fixed top-0 w-full bg-white/95 backdrop-blur-sm  transition-all duration-500 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 group">
+                    <a href="index.php" class="flex items-center space-x-2">
+                        <span class="logo-text font-bold bg-red-500 text-2xl bg-clip-text text-transparent transition-transform duration-300">
+                            Nishan Bakers
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="http://localhost/bakery/" class="nav-link text-gray-700 font-medium hover:text-[#FF4B60] transition-colors duration-300">Home</a>
+                    <a href="http://localhost/bakery/about.php" class="nav-link text-gray-700 font-medium hover:text-[#FF4B60] transition-colors duration-300">About</a>
+                    <a href="shop.php" class="nav-link text-gray-700 font-medium hover:text-[#FF4B60] transition-colors duration-300">Shop</a>
+                    <a href="http://localhost/bakery/staff/blog.php" class="nav-link text-gray-700 font-medium hover:text-[#FF4B60] transition-colors duration-300">Blogs</a>
+                    <a href="#" class="nav-link text-gray-700 font-medium hover:text-[#FF4B60] transition-colors duration-300">Recipes</a>
+                    <a href="#" class="nav-link text-gray-700 font-medium hover:text-[#FF4B60] transition-colors duration-300">Contact</a>
+                </div>
+
+                <!-- Right Side Items - Desktop -->
+                <div class="hidden lg:flex items-center space-x-6">
+                  <!-- Cart Icon -->
+<!-- Cart Icon -->
+<div id="cart-container-unique" class="relative group icon p-2 hover:bg-gray-100 rounded-full transition-all duration-300 cart-bounce cursor-pointer">
+    <i id="cart-icon-unique" class="fas fa-shopping-cart text-xl text-gray-700 group-hover:text-[#FF4B60]"></i>
+</div>
+
+
+
+                    <!-- Auth Buttons -->
+                    <a href="http://localhost/bakery/login%20and%20signin.php" class="auth-icon p-2 hover:bg-gray-100 rounded-full transition-all duration-300">
+                        <i class="fas fa-user-plus text-xl text-gray-700 hover:text-[#FF4B60]"></i>
+                    </a>
+                    <a href="http://localhost/bakery/login%20and%20signin.php" class="px-6 py-2 bg-[#FF4B60] text-white rounded-full hover:bg-[#FF6B80] transition-all duration-300 flex items-center space-x-2">
+                        <i class="form-container sign-in"></i>
+                        <span>Login</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Right Icons -->
+                <div class="flex lg:hidden items-center space-x-4">
+                    <!-- Mobile Cart -->
+                    <button class="p-2 hover:bg-gray-100 rounded-full relative">
+                        <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
+                        <span class="absolute -top-1 -right-1 bg-[#FF4B60] text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">3</span>
+                    </button>
+                    
+                    <!-- Mobile Menu Toggle -->
+                    <button id="menu-btn" class="p-2 rounded-md hover:bg-gray-100 transition-colors duration-300">
+                        <i class="fas fa-bars text-xl text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu lg:hidden bg-white fixed top-20 left-0 w-full h-screen shadow-lg">
+            <div class="px-4 py-6 space-y-4">
+                <a href="index.php" class="block px-4 py-3 text-gray-700 hover:bg-[#FF4B60] hover:text-white rounded-lg transition-all duration-300">Home</a>
+                <a href="about.php" class="block px-4 py-3 text-gray-700 hover:bg-[#FF4B60] hover:text-white rounded-lg transition-all duration-300">About</a>
+                <a href="shop.php" class="block px-4 py-3 text-gray-700 hover:bg-[#FF4B60] hover:text-white rounded-lg transition-all duration-300">Shop</a>
+                <a href="food.php" class="block px-4 py-3 text-gray-700 hover:bg-[#FF4B60] hover:text-white rounded-lg transition-all duration-300">Food</a>
+                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-[#FF4B60] hover:text-white rounded-lg transition-all duration-300">Recipes</a>
+                <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-[#FF4B60] hover:text-white rounded-lg transition-all duration-300">Contact</a>
+                
+                <!-- Mobile Auth Options -->
+                <div class="pt-6 border-t border-gray-200 space-y-3">
+                    <a href="login and signin.php" class="flex items-center space-x-2 px-4 py-3 text-gray-700 hover:bg-[#FF4B60] hover:text-white rounded-lg transition-all duration-300">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Sign Up</span>
+                    </a>
+                    <a href="login and signin.php" class="flex items-center space-x-2 px-4 py-3 bg-[#FF4B60] text-white rounded-lg hover:bg-[#FF6B80] transition-all duration-300">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Login</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        // Enhanced scroll behavior
+        let lastScroll = 0;
+        const navbar = document.getElementById('navbar');
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+
+        // Scroll handling
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                navbar.classList.remove('nav-hidden');
+                navbar.style.background = 'rgb(255, 255, 255, 0.95)';
+                return;
+            }
+            
+            if (currentScroll > lastScroll && !navbar.classList.contains('nav-hidden')) {
+                navbar.classList.add('nav-hidden');
+            } else if (currentScroll < lastScroll && navbar.classList.contains('nav-hidden')) {
+                navbar.classList.remove('nav-hidden');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Mobile menu toggle
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            mobileMenu.classList.toggle('active');
+            menuBtn.innerHTML = isMenuOpen ? 
+                '<i class="fas fa-times text-xl text-[#FF4B60]"></i>' : 
+                '<i class="fas fa-bars text-xl text-gray-700"></i>';
+            
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+        });
+
+        // Handle screen resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024 && isMenuOpen) {
+                mobileMenu.classList.remove('active');
+                menuBtn.innerHTML = '<i class="fas fa-bars text-xl text-gray-700"></i>';
+                isMenuOpen = false;
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target) && isMenuOpen) {
+                mobileMenu.classList.remove('active');
+                menuBtn.innerHTML = '<i class="fas fa-bars text-xl text-gray-700"></i>';
+                isMenuOpen = false;
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>
